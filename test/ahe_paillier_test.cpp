@@ -221,8 +221,8 @@ TEST(AHEPaillierTest, Serialization) {
     {
         petace::solo::PRNGFactory prng_factory = petace::solo::PRNGFactory(petace::solo::PRNGScheme::BLAKE2Xb);
         auto prng = prng_factory.create();
-        std::size_t illegal_bits = 8200;
-        std::size_t illegal_byte_count = 1025;
+        std::size_t illegal_bits = 16385;
+        std::size_t illegal_byte_count = 2049;
         std::vector<petace::solo::Byte> bn_bytes(illegal_byte_count);
         prng->generate(illegal_byte_count, bn_bytes.data());
 #ifdef SOLO_USE_IPCL
@@ -319,7 +319,7 @@ TEST(AHEPaillierTest, Serialization) {
     {
         petace::solo::PRNGFactory prng_factory = petace::solo::PRNGFactory(petace::solo::PRNGScheme::BLAKE2Xb);
         auto prng = prng_factory.create();
-        std::size_t illegal_byte_count = 1025;
+        std::size_t illegal_byte_count = 2049;
         std::vector<petace::solo::Byte> bn_bytes(illegal_byte_count);
         prng->generate(illegal_byte_count, bn_bytes.data());
         petace::solo::ahepaillier::Plaintext pt;
@@ -330,7 +330,7 @@ TEST(AHEPaillierTest, Serialization) {
     {
         petace::solo::PRNGFactory prng_factory = petace::solo::PRNGFactory(petace::solo::PRNGScheme::BLAKE2Xb);
         auto prng = prng_factory.create();
-        std::size_t illegal_byte_count = 1025;
+        std::size_t illegal_byte_count = 2049;
         std::vector<petace::solo::Byte> bn_bytes(illegal_byte_count);
         prng->generate(illegal_byte_count, bn_bytes.data());
         std::shared_ptr<petace::solo::ahepaillier::SecretKey> sk = nullptr;

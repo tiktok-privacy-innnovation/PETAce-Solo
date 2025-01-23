@@ -36,9 +36,18 @@ TEST(ECOpenSSLTest, ECScheme) {
         ASSERT_THROW(ec.create_secret_key(nullptr, sk), std::invalid_argument);
         ec.create_secret_key(prng, sk);
         ec.create_secret_key(prng, sk_new);
+
+        std::size_t sk_byte_count = ec.secret_key_to_bytes(sk, 0, nullptr);
+        std::vector<petace::solo::Byte> sk_byte_array(sk_byte_count);
+        ASSERT_EQ(ec.secret_key_to_bytes(sk, sk_byte_count, sk_byte_array.data()), sk_byte_count);
+        EC::SecretKey sk_deserialized;
+        ec.secret_key_from_bytes(sk_byte_array.data(), sk_byte_count, sk_deserialized);
+
         ASSERT_THROW(ec.hash_to_curve(nullptr, 64, plaintext), std::invalid_argument);
         ec.hash_to_curve(input, 64, plaintext);
         ec.encrypt(plaintext, sk, ciphertext);
+        ec.encrypt(plaintext, sk_deserialized, ciphertext_new);
+        ASSERT_TRUE(ec.are_equal(ciphertext, ciphertext_new));
         ec.switch_key(ciphertext, sk, sk_new, ciphertext_new);
         ec.decrypt(ciphertext_new, sk_new, plaintext_new);
         ASSERT_TRUE(ec.are_equal(plaintext_new, plaintext));

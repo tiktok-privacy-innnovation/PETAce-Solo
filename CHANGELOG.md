@@ -21,3 +21,7 @@
 ### Features
 
 - Added a GMP-based generic implementation of the Paillier cryptosystem.
+
+## Version 0.4.0
+
+- No update.

@@ -14,13 +14,13 @@
 
 cmake_minimum_required(VERSION 3.14)
 
-project(SOLOBench VERSION 0.3.0 LANGUAGES CXX)
+project(SOLOBench VERSION 0.4.0 LANGUAGES CXX)
 
 # If not called from root CMakeLists.txt
 if(NOT DEFINED SOLO_BUILD_BENCH)
     set(SOLO_BUILD_BENCH ON)
 
-    find_package(PETAce-Solo 0.3.0 EXACT REQUIRED)
+    find_package(PETAce-Solo 0.4.0 EXACT REQUIRED)
 
     # Must define these variables and include macros
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)

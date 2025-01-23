@@ -313,6 +313,29 @@ public:
      */
     void point_from_bytes(const Byte* in, std::size_t in_byte_count, Point& out) const;
 
+    /**
+     * @brief Reads a secret key from a byte buffer.
+     *
+     * @param[in] in The byte buffer to read from.
+     * @param[in] in_byte_count The size of the input byte buffer.
+     * @param[out] The secret key to write to.
+     * @throws std::invalid_argument if the input buffer's byte size is zero or either input or output is nullptr.
+     * @throws std::runtime_error if an OpenSSL command fails or if the buffer is not large enough.
+     */
+    void secret_key_from_bytes(const Byte* in, std::size_t in_byte_count, SecretKey& out) const;
+
+    /**
+     * @brief Writes a secret key into a byte buffer and returns the number of bytes written (if the byte buffer is
+     * empty).
+     *
+     * @param[in] in The secret key to be written.
+     * @param[in] out_byte_count The size of the output byte buffer.
+     * @param[out] The byte buffer to write to.
+     * @throws std::invalid_argument if the input is nullptr.
+     * @throws std::runtime_error if an OpenSSL command fails or if the buffer is not large enough.
+     */
+    std::size_t secret_key_to_bytes(const SecretKey& in, std::size_t out_byte_count, Byte* out = nullptr) const;
+
 private:
     void hash_to_field(
             std::shared_ptr<Hash> hash, const Byte* in, std::size_t in_byte_count, BIGNUM* out, BN_CTX* ctx) const;

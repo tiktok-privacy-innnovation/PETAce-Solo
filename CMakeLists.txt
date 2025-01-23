@@ -31,7 +31,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 message(STATUS "Build type (CMAKE_BUILD_TYPE): ${CMAKE_BUILD_TYPE}")
 
-project(SOLO VERSION 0.3.0 LANGUAGES CXX C)
+project(SOLO VERSION 0.4.0 LANGUAGES CXX C)
 
 ########################
 # Global configuration #

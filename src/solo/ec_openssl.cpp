@@ -427,5 +427,34 @@ void ECOpenSSL::point_from_bytes(const Byte* in, std::size_t in_byte_count, Poin
     }
 }
 
+void ECOpenSSL::secret_key_from_bytes(const Byte* in, std::size_t in_byte_count, SecretKey& out) const {
+    if (in_byte_count == 0) {
+        throw std::invalid_argument("in_byte_count is zero");
+    }
+    if (in == nullptr && in_byte_count != 0) {
+        throw std::invalid_argument("in is nullptr");
+    }
+    if (out.data() == nullptr) {
+        throw std::invalid_argument("out is nullptr");
+    }
+    if (BN_bin2bn(reinterpret_cast<const unsigned char*>(in), static_cast<int>(in_byte_count), out.data()) == nullptr) {
+        throw std::runtime_error("openssl error: " + std::to_string(ERR_get_error()));
+    }
+}
+
+std::size_t ECOpenSSL::secret_key_to_bytes(const SecretKey& in, std::size_t out_byte_count, Byte* out) const {
+    if (in.data() == nullptr) {
+        throw std::invalid_argument("in is nullptr");
+    }
+    if (out == nullptr) {
+        return static_cast<std::size_t>(BN_num_bytes(in.data()));
+    }
+    std::size_t res = static_cast<std::size_t>(BN_bn2bin(in.data(), reinterpret_cast<unsigned char*>(out)));
+    if (res > out_byte_count) {
+        throw std::runtime_error("the buffer is not large enough.");
+    }
+    return res;
+}
+
 }  // namespace solo
 }  // namespace petace

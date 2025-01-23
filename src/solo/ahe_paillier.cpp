@@ -33,8 +33,8 @@ namespace petace {
 namespace solo {
 namespace ahepaillier {
 
-constexpr std::size_t kAHEMaxRandomBits = 8192;
-constexpr std::size_t kAHEMaxRandomByteCount = 1024;
+constexpr std::size_t kAHEMaxRandomBits = 16384;
+constexpr std::size_t kAHEMaxRandomByteCount = 2048;
 
 PublicKey::PublicKey(std::size_t key_length, bool enable_djn)
         : key_length_(key_length), n_byte_count_((key_length_ + 7) / 8), enable_djn_(enable_djn), pk_set_(false) {
